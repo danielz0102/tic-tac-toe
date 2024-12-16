@@ -59,11 +59,10 @@ function gameController(playerName1, playerName2) {
     Gameboard.printBoard()
   }
 
-  const printWinner = () => {
+  const printResult = win => {
     console.log('----------------------------------------------')
     Gameboard.printBoard()
-    console.log(`${getActivePlayer().name} wins`)
-    resetGame()
+    console.log(win ? `${getActivePlayer().name} wins` : "It's a tie")
   }
   
   const resetGame = () => {
@@ -77,7 +76,9 @@ function gameController(playerName1, playerName2) {
     if (cellIsOccupied) {
       console.log('Please select an empty cell')
     } else if (checkWinner(row, col)) {
-      printWinner()
+      printResult(true)
+    } else if (checkTie(row, col)) {
+      printResult(false)
     } else {
       switchTurn()
       printRound()
@@ -121,15 +122,28 @@ function gameController(playerName1, playerName2) {
     return win
   }
 
+  const checkTie = (row, col) => {
+    const board = Gameboard.getBoard()
+    const boardIsFull = !board.some(
+      cell => cell[0] === null || cell[1] === null || cell[2] === null
+    )
+
+    return boardIsFull && !checkWinner(row, col)
+  }
+
   printRound()
 
-  return { playRound }
+  return { playRound, resetGame }
 }
 
-const game = gameController('daniel', 'sara')
-game.playRound(0, 0)
-game.playRound(0, 1)
-game.playRound(1, 0)
-game.playRound(0, 2)
-game.playRound(2, 0)
-game.playRound(2, 0)
+const game5 = gameController('Ivy', 'Jack');
+game5.playRound(0, 0); // Ivy
+game5.playRound(0, 1); // Jack
+game5.playRound(0, 2); // Ivy
+game5.playRound(1, 1); // Jack
+game5.playRound(1, 0); // Ivy
+game5.playRound(2, 0); // Jack
+game5.playRound(1, 2); // Ivy
+game5.playRound(2, 2); // Jack
+game5.playRound(2, 1); // Ivy
+
