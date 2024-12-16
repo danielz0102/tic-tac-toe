@@ -19,7 +19,10 @@ const Gameboard = (() => {
   const setBoard = (mark, row, col) => {
     if (!board[row][col]) {
       board[row][col] = mark
+      return true
     }
+
+    return false
   }
 
   initBoard()
@@ -40,23 +43,33 @@ function gameController(playerName1, playerName2) {
       turn: false
     }
   ]
-
+  
   const getActivePlayer = () => players.find(player => player.turn === true)
-
+  
   const switchTurn = () => {
-    players[0].turn ^= true
-    players[1].turn ^= true
+    players[0].turn = !players[0].turn
+    players[1].turn = !players[1].turn
   }
-
-  const playRound = () => {
+  
+  const printRound = () => {
     const activePlayer = getActivePlayer()
     console.log(`${activePlayer.name}'s turn`)
     Gameboard.printBoard()
   }
+  
+  const playRound = (row, col) => {
+    const activePlayer = getActivePlayer()
+    const cellIsOccupied = !Gameboard.setBoard(activePlayer.mark, row, col)
 
-  playRound()
+    cellIsOccupied ? console.log('Please select an empty cell') : switchTurn()
+
+    printRound()
+  }
+
+  printRound()
 
   return { playRound }
 }
 
 const game = gameController('daniel', 'sara')
+game.playRound(0, 0)
