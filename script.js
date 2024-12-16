@@ -25,9 +25,11 @@ const Gameboard = (() => {
     return false
   }
 
+  const getBoard = () => board
+
   initBoard()
 
-  return { printBoard, initBoard, setBoard }
+  return { printBoard, initBoard, setBoard, getBoard }
 })()
 
 function gameController(playerName1, playerName2) {
@@ -52,18 +54,71 @@ function gameController(playerName1, playerName2) {
   }
   
   const printRound = () => {
-    const activePlayer = getActivePlayer()
-    console.log(`${activePlayer.name}'s turn`)
+    console.log('----------------------------------------------')
+    console.log(`${getActivePlayer().name}'s turn`)
     Gameboard.printBoard()
+  }
+
+  const printWinner = () => {
+    console.log('----------------------------------------------')
+    Gameboard.printBoard()
+    console.log(`${getActivePlayer().name} wins`)
+    resetGame()
+  }
+  
+  const resetGame = () => {
+    Gameboard.initBoard()
+    printRound()
   }
   
   const playRound = (row, col) => {
-    const activePlayer = getActivePlayer()
-    const cellIsOccupied = !Gameboard.setBoard(activePlayer.mark, row, col)
+    const cellIsOccupied = !Gameboard.setBoard(getActivePlayer().mark, row, col)
 
-    cellIsOccupied ? console.log('Please select an empty cell') : switchTurn()
+    if (cellIsOccupied) {
+      console.log('Please select an empty cell')
+    } else if (checkWinner(row, col)) {
+      printWinner()
+    } else {
+      switchTurn()
+      printRound()
+    }
+  }
 
-    printRound()
+  const checkWinner = (row, col) => {
+    const board = Gameboard.getBoard()
+    const currentMark = getActivePlayer().mark
+    let win = false
+
+    if (board[row][0] === currentMark
+      && board[row][1] === currentMark
+      && board[row][2] === currentMark
+    ) {
+      win = true
+    }
+
+    if (board[0][col] === currentMark
+      && board[1][col] === currentMark
+      && board[2][col] === currentMark
+    ) {
+      win = true
+    }
+
+    //checking diagonals
+    if (board[0][0] === currentMark
+      && board[1][1] === currentMark
+      && board[2][2] === currentMark
+    ) {
+      win = true
+    }
+
+    if (board[0][2] === currentMark
+      && board[1][1] === currentMark
+      && board[2][0]
+    ) {
+      win = true
+    }
+
+    return win
   }
 
   printRound()
@@ -73,3 +128,8 @@ function gameController(playerName1, playerName2) {
 
 const game = gameController('daniel', 'sara')
 game.playRound(0, 0)
+game.playRound(0, 1)
+game.playRound(1, 0)
+game.playRound(0, 2)
+game.playRound(2, 0)
+game.playRound(2, 0)
