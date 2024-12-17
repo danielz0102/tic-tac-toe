@@ -42,9 +42,39 @@ const DisplayController = (() => {
     cells.forEach((cell, i) => {
       cell.textContent = values[i]
     })
+
+    document.querySelector('.warning').textContent = ''
   }
 
-  return { loadBoard }
+  const displayInfo = (player1, player2) => {
+    const h2 = document.querySelector('h2')
+    h2.textContent = `${player1} vs ${player2}`
+  }
+
+  const updateTurn = (player, mark) => {
+    const p = document.querySelector('p')
+    p.textContent = `${player}'s turn (${mark})`
+  }
+
+  const showResult = (win, player) => {
+    const p = document.querySelector('p')
+    p.textContent = win ? `${player} wins` : "It's a tie"
+
+    cells.forEach(cell => cell.disabled = true)
+  }
+
+  const showWarning = () => {
+    const p = document.querySelector('.warning')
+    p.textContent = 'Please select an empty cell'
+  }
+
+  return { 
+    loadBoard,
+    displayInfo,
+    updateTurn,
+    showWarning,
+    showResult 
+  }
 })()
 
 function GameController(playerName1, playerName2) {
@@ -69,8 +99,12 @@ function GameController(playerName1, playerName2) {
   }
   
   const printRound = () => {
+    const name = getActivePlayer().name
+
     console.log('----------------------------------------------')
-    console.log(`${getActivePlayer().name}'s turn`)
+    console.log(`${name}'s turn`)
+    DisplayController.updateTurn(name, getActivePlayer().mark)
+
     Gameboard.printBoard()
     DisplayController.loadBoard()
   }
@@ -79,6 +113,8 @@ function GameController(playerName1, playerName2) {
     console.log('----------------------------------------------')
     Gameboard.printBoard()
     console.log(win ? `${getActivePlayer().name} wins` : "It's a tie")
+    DisplayController.loadBoard()
+    DisplayController.showResult(win, getActivePlayer().name)
   }
   
   const resetGame = () => {
@@ -91,6 +127,7 @@ function GameController(playerName1, playerName2) {
 
     if (cellIsOccupied) {
       console.log('Please select an empty cell')
+      DisplayController.showWarning()
       return
     }
 
@@ -144,6 +181,7 @@ function GameController(playerName1, playerName2) {
   return { playRound, resetGame }
 }
 
+DisplayController.displayInfo('Eve', 'Frank')
 const game = GameController('Eve', 'Frank')
 const cells = document.querySelectorAll('.cell')
 
