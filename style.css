@@ -8,6 +8,10 @@ h1, h2, p {
   margin: 0;
 }
 
+button, input {
+  font: inherit;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -47,7 +51,7 @@ h2 + p, p + p {
   color: #08a32a;
 }
 
-main {
+#grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -64,16 +68,76 @@ main {
   padding: 0;
 }
 
-#restartBtn {
-  margin-top: 16px;
-  font: inherit;
+.btn, input {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
-  background-color: #fff;
 }
 
-#restartBtn:hover {
-  background-color: #ffffff99;
+.btn {
+  margin-top: 16px;
+  cursor: pointer;
+  border: 1px solid #000;
+  background-color: #000;
+  color: #fff;
+  transition: background-color 0.2s;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+aside {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 32px;
+  background-color: #fff;
+
+  h2 {
+    margin-bottom: 32px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 400;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label, span {
+    text-align: start;
+  }
+
+  input {
+    outline: none;
+    border: 1px solid #000;
+  }
+
+  span::after {
+    content: '* Please fill this field';
+    color: #cc0c0c;
+    font-size: 0.8rem;
+    text-align: start;
+    visibility: hidden;
+  }
+
+  input:focus {
+    box-shadow: 1px 1px 3px #444;
+  }
+
+  input:user-invalid {
+    border-color: #cc0c0c;
+  }
+
+  input:user-invalid + span::after {
+    visibility: visible;
+  }
 }
