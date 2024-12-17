@@ -63,3 +63,17 @@ main {
   font-size: 10rem;
   padding: 0;
 }
+
+#restartBtn {
+  margin-top: 16px;
+  font: inherit;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+#restartBtn:hover {
+  background-color: #ffffff99;
+}

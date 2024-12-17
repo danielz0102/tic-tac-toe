@@ -33,17 +33,22 @@ const Gameboard = (() => {
 })()
 
 const DisplayController = (() => {
-  const board = Gameboard.getBoard()
   const cells = document.querySelectorAll('.cell')
-  
+
+  const resetUI = () => {
+    const p = document.querySelector('#info')
+    p.className = ''
+    cells.forEach(cell => cell.disabled = false)
+    document.querySelector('.warning').textContent = ''
+  }
+
   const loadBoard = () => {
-    values = board.flat()
-    
+    resetUI()
+
+    values = Gameboard.getBoard().flat()
     cells.forEach((cell, i) => {
       cell.textContent = values[i]
     })
-
-    document.querySelector('.warning').textContent = ''
   }
 
   const displayNames = (player1, player2) => {
@@ -77,7 +82,7 @@ const DisplayController = (() => {
     displayNames,
     updateTurn,
     showWarning,
-    showResult 
+    showResult,
   }
 })()
 
@@ -192,3 +197,5 @@ const cells = document.querySelectorAll('.cell')
 cells.forEach(cell => cell.addEventListener('click', () => {
   game.playRound(cell.dataset.row, cell.dataset.col)
 }))
+
+document.querySelector('#restartBtn').addEventListener('click', game.resetGame)
