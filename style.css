@@ -30,4 +30,7 @@ main {
   background-color: #fff;
   width: 200px;
   height: 200px;
+
+  font-size: 10rem;
+  padding: 0;
 }

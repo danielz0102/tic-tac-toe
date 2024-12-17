@@ -32,7 +32,22 @@ const Gameboard = (() => {
   return { printBoard, initBoard, setBoard, getBoard }
 })()
 
-function gameController(playerName1, playerName2) {
+const DisplayController = (() => {
+  const board = Gameboard.getBoard()
+  const cells = document.querySelectorAll('.cell')
+  
+  const loadBoard = () => {
+    values = board.flat()
+    
+    cells.forEach((cell, i) => {
+      cell.textContent = values[i]
+    })
+  }
+
+  return { loadBoard }
+})()
+
+function GameController(playerName1, playerName2) {
   const players = [
     {
       name: playerName1,
@@ -57,6 +72,7 @@ function gameController(playerName1, playerName2) {
     console.log('----------------------------------------------')
     console.log(`${getActivePlayer().name}'s turn`)
     Gameboard.printBoard()
+    DisplayController.loadBoard()
   }
 
   const printResult = win => {
@@ -128,6 +144,9 @@ function gameController(playerName1, playerName2) {
   return { playRound, resetGame }
 }
 
-const DisplayController = (() => {
-
-})()
+const game = GameController('Eve', 'Frank')
+game.playRound(0, 0)
+game.playRound(1, 0)
+game.playRound(2, 0)
+game.playRound(1, 1)
+game.playRound(2, 2)
