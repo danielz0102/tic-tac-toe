@@ -75,14 +75,19 @@ function gameController(playerName1, playerName2) {
 
     if (cellIsOccupied) {
       console.log('Please select an empty cell')
-    } else if (checkWinner(row, col)) {
-      printResult(true)
-    } else if (checkTie(row, col)) {
-      printResult(false)
-    } else {
-      switchTurn()
-      printRound()
+      return
     }
+
+    if (checkWinner(row, col)) {
+      printResult(true)
+      return
+    } else if (boardIsFull()) {
+      printResult(false)
+      return
+    }
+
+    switchTurn()
+    printRound()
   }
 
   const checkWinner = (row, col) => {
@@ -114,7 +119,7 @@ function gameController(playerName1, playerName2) {
 
     if (board[0][2] === currentMark
       && board[1][1] === currentMark
-      && board[2][0]
+      && board[2][0] === currentMark
     ) {
       win = true
     }
@@ -122,28 +127,14 @@ function gameController(playerName1, playerName2) {
     return win
   }
 
-  const checkTie = (row, col) => {
+  const boardIsFull = () => {
     const board = Gameboard.getBoard()
-    const boardIsFull = !board.some(
+    return !board.some(
       cell => cell[0] === null || cell[1] === null || cell[2] === null
     )
-
-    return boardIsFull && !checkWinner(row, col)
   }
 
   printRound()
 
   return { playRound, resetGame }
 }
-
-const game5 = gameController('Ivy', 'Jack');
-game5.playRound(0, 0); // Ivy
-game5.playRound(0, 1); // Jack
-game5.playRound(0, 2); // Ivy
-game5.playRound(1, 1); // Jack
-game5.playRound(1, 0); // Ivy
-game5.playRound(2, 0); // Jack
-game5.playRound(1, 2); // Ivy
-game5.playRound(2, 2); // Jack
-game5.playRound(2, 1); // Ivy
-
