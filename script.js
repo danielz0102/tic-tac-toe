@@ -1,3 +1,5 @@
+let game
+
 const Gameboard = (() => {
   const board = []
 
@@ -33,7 +35,38 @@ const Gameboard = (() => {
 })()
 
 const DOMController = (() => {
-  const cells = document.querySelectorAll('.cell')
+  const gameHTML = document.querySelector('#game').outerHTML
+  const formHTML = document.querySelector('aside').outerHTML
+  let cells
+
+  const initForm = () => {
+    document.querySelector('body').innerHTML = formHTML
+    document.querySelector('form').addEventListener('submit', validateForm)
+  }
+
+  const initGame = () => {
+    const form = document.querySelector('form')
+    const player1 = form.querySelector('#player1').value
+    const player2 = form.querySelector('#player2').value
+
+    document.querySelector('body').innerHTML = gameHTML
+    showNames(player1, player2)
+    
+    cells = document.querySelectorAll('.cell')
+    game = GameController(player1, player2)
+
+    cells.forEach(cell => 
+      cell.addEventListener('click', 
+        () => game.playRound(cell.dataset.row, cell.dataset.col)
+      )
+    )
+  }
+
+  const validateForm = e => {
+    e.preventDefault()
+    
+    if (document.querySelector('form').checkValidity()) initGame()
+  }
 
   const resetUI = () => {
     const p = document.querySelector('#info')
@@ -83,6 +116,8 @@ const DOMController = (() => {
     updateTurn,
     showWarning,
     showResult,
+    initGame,
+    initForm
   }
 })()
 
@@ -187,15 +222,9 @@ function GameController(playerName1, playerName2) {
 
   printRound()
 
+  document.querySelector('#restartBtn').addEventListener('click', resetGame)
+
   return { playRound, resetGame }
 }
 
-DOMController.showNames('Eve', 'Frank')
-const game = GameController('Eve', 'Frank')
-const cells = document.querySelectorAll('.cell')
-
-cells.forEach(cell => cell.addEventListener('click', () => {
-  game.playRound(cell.dataset.row, cell.dataset.col)
-}))
-
-document.querySelector('#restartBtn').addEventListener('click', game.resetGame)
+DOMController.initForm()
