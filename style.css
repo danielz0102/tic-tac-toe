@@ -22,7 +22,7 @@ body > * {
   text-align: center;
 }
 
-#info {
+#infoSection {
   margin-bottom: 32px;
   height: 125px;
 }
@@ -35,9 +35,16 @@ h2 + p, p + p {
   margin-top: 8px;
 }
 
+.warning, .winner {
+  font-weight: 600;
+}
+
 .warning {
   color: #bb341c;
-  font-weight: 600;
+}
+
+.winner {
+  color: #08a32a;
 }
 
 main {

@@ -46,19 +46,23 @@ const DisplayController = (() => {
     document.querySelector('.warning').textContent = ''
   }
 
-  const displayInfo = (player1, player2) => {
-    const h2 = document.querySelector('h2')
+  const displayNames = (player1, player2) => {
+    const h2 = document.querySelector('#versus')
     h2.textContent = `${player1} vs ${player2}`
   }
 
   const updateTurn = (player, mark) => {
-    const p = document.querySelector('p')
+    const p = document.querySelector('#info')
     p.textContent = `${player}'s turn (${mark})`
   }
 
   const showResult = (win, player) => {
-    const p = document.querySelector('p')
+    const p = document.querySelector('#info')
     p.textContent = win ? `${player} wins` : "It's a tie"
+
+    if (win) {
+      p.classList.add('winner')
+    }
 
     cells.forEach(cell => cell.disabled = true)
   }
@@ -70,7 +74,7 @@ const DisplayController = (() => {
 
   return { 
     loadBoard,
-    displayInfo,
+    displayNames,
     updateTurn,
     showWarning,
     showResult 
@@ -181,7 +185,7 @@ function GameController(playerName1, playerName2) {
   return { playRound, resetGame }
 }
 
-DisplayController.displayInfo('Eve', 'Frank')
+DisplayController.displayNames('Eve', 'Frank')
 const game = GameController('Eve', 'Frank')
 const cells = document.querySelectorAll('.cell')
 
