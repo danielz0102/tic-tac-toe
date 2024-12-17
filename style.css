@@ -1,0 +1,33 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  background-color: #bdbdbd;
+
+  font-family: Courier, monospace;
+}
+
+h1 {
+  text-align: center;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.cell {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 200px;
+  height: 200px;
+}

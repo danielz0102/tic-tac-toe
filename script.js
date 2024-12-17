@@ -127,3 +127,7 @@ function gameController(playerName1, playerName2) {
 
   return { playRound, resetGame }
 }
+
+const DisplayController = (() => {
+
+})()
