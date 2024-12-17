@@ -93,38 +93,27 @@ function gameController(playerName1, playerName2) {
   const checkWinner = (row, col) => {
     const board = Gameboard.getBoard()
     const currentMark = getActivePlayer().mark
-    let win = false
 
-    if (board[row][0] === currentMark
-      && board[row][1] === currentMark
-      && board[row][2] === currentMark
-    ) {
-      win = true
-    }
+    const winConditions = [
+      board[row][0] === currentMark &&
+      board[row][1] === currentMark &&
+      board[row][2] === currentMark,
 
-    if (board[0][col] === currentMark
-      && board[1][col] === currentMark
-      && board[2][col] === currentMark
-    ) {
-      win = true
-    }
+      board[0][col] === currentMark &&
+      board[1][col] === currentMark &&
+      board[2][col] === currentMark,
+  
+      //diagonals
+      board[0][0] === currentMark &&
+      board[1][1] === currentMark &&
+      board[2][2] === currentMark,
+  
+      board[0][2] === currentMark &&
+      board[1][1] === currentMark &&
+      board[2][0] === currentMark
+    ]
 
-    //checking diagonals
-    if (board[0][0] === currentMark
-      && board[1][1] === currentMark
-      && board[2][2] === currentMark
-    ) {
-      win = true
-    }
-
-    if (board[0][2] === currentMark
-      && board[1][1] === currentMark
-      && board[2][0] === currentMark
-    ) {
-      win = true
-    }
-
-    return win
+    return winConditions.some(c => c)
   }
 
   const boardIsFull = () => {
