@@ -32,7 +32,7 @@ const Gameboard = (() => {
   return { printBoard, initBoard, setBoard, getBoard }
 })()
 
-const DisplayController = (() => {
+const DOMController = (() => {
   const cells = document.querySelectorAll('.cell')
 
   const resetUI = () => {
@@ -51,7 +51,7 @@ const DisplayController = (() => {
     })
   }
 
-  const displayNames = (player1, player2) => {
+  const showNames = (player1, player2) => {
     const h2 = document.querySelector('#versus')
     h2.textContent = `${player1} vs ${player2}`
   }
@@ -79,7 +79,7 @@ const DisplayController = (() => {
 
   return { 
     loadBoard,
-    displayNames,
+    showNames,
     updateTurn,
     showWarning,
     showResult,
@@ -112,18 +112,18 @@ function GameController(playerName1, playerName2) {
 
     console.log('----------------------------------------------')
     console.log(`${name}'s turn`)
-    DisplayController.updateTurn(name, getActivePlayer().mark)
+    DOMController.updateTurn(name, getActivePlayer().mark)
 
     Gameboard.printBoard()
-    DisplayController.loadBoard()
+    DOMController.loadBoard()
   }
 
   const printResult = win => {
     console.log('----------------------------------------------')
     Gameboard.printBoard()
     console.log(win ? `${getActivePlayer().name} wins` : "It's a tie")
-    DisplayController.loadBoard()
-    DisplayController.showResult(win, getActivePlayer().name)
+    DOMController.loadBoard()
+    DOMController.showResult(win, getActivePlayer().name)
   }
   
   const resetGame = () => {
@@ -136,7 +136,7 @@ function GameController(playerName1, playerName2) {
 
     if (cellIsOccupied) {
       console.log('Please select an empty cell')
-      DisplayController.showWarning()
+      DOMController.showWarning()
       return
     }
 
@@ -190,7 +190,7 @@ function GameController(playerName1, playerName2) {
   return { playRound, resetGame }
 }
 
-DisplayController.displayNames('Eve', 'Frank')
+DOMController.showNames('Eve', 'Frank')
 const game = GameController('Eve', 'Frank')
 const cells = document.querySelectorAll('.cell')
 
