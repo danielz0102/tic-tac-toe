@@ -145,8 +145,8 @@ function GameController(playerName1, playerName2) {
 }
 
 const game = GameController('Eve', 'Frank')
-game.playRound(0, 0)
-game.playRound(1, 0)
-game.playRound(2, 0)
-game.playRound(1, 1)
-game.playRound(2, 2)
+const cells = document.querySelectorAll('.cell')
+
+cells.forEach(cell => cell.addEventListener('click', () => {
+  game.playRound(cell.dataset.row, cell.dataset.col)
+}))
