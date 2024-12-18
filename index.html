@@ -8,43 +8,47 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main id="game">
-    <section id="infoSection">
-      <h1>Tic Tac Toe!</h1>
-      <h2 id="versus"></h2>
-      <p id="info"></p>
-      <p class="warning"></p>
-    </section>
-    <section id="grid">
-      <button data-row="0" data-col="0" class="cell"></button>
-      <button data-row="0" data-col="1" class="cell"></button>
-      <button data-row="0" data-col="2" class="cell"></button>
-      <button data-row="1" data-col="0" class="cell"></button>
-      <button data-row="1" data-col="1" class="cell"></button>
-      <button data-row="1" data-col="2" class="cell"></button>
-      <button data-row="2" data-col="0" class="cell"></button>
-      <button data-row="2" data-col="1" class="cell"></button>
-      <button data-row="2" data-col="2" class="cell"></button>
-    </section>
-
-    <button class="btn" id="restartBtn">Restart</button>
-  </main>
-
-  <aside>
-    <h2>Enter your names</h2>
-    <form novalidate>
-      <div class="form-row">
-        <label for="player1">Player 1</label>
-        <input type="text" id="player1" required>
-        <span></span>
-      </div>
-      <div class="form-row">
-        <label for="player2">Player 2</label>
-        <input type="text" id="player2" required>
-        <span></span>
-      </div>
-      <button id="submitBtn" class="btn">Start game</button>
-    </form>
-  </aside>
+  <header>
+    <h1>Tic Tac Toe!</h1>
+  </header>
+  <div class="container">
+    <main id="game">
+      <section id="infoSection">
+        <h2 id="versus"></h2>
+        <p class="info-text" id="info"></p>
+        <p class="warning"></p>
+      </section>
+      <section id="grid">
+        <button data-row="0" data-col="0" class="cell"></button>
+        <button data-row="0" data-col="1" class="cell"></button>
+        <button data-row="0" data-col="2" class="cell"></button>
+        <button data-row="1" data-col="0" class="cell"></button>
+        <button data-row="1" data-col="1" class="cell"></button>
+        <button data-row="1" data-col="2" class="cell"></button>
+        <button data-row="2" data-col="0" class="cell"></button>
+        <button data-row="2" data-col="1" class="cell"></button>
+        <button data-row="2" data-col="2" class="cell"></button>
+      </section>
+  
+      <button class="btn" id="restartBtn">Restart Game</button>
+    </main>
+  
+    <aside>
+      <h2>Enter your names</h2>
+      <form novalidate>
+        <div class="form-row">
+          <label for="player1">Player 1</label>
+          <input type="text" id="player1" required>
+          <span></span>
+        </div>
+        <div class="form-row">
+          <label for="player2">Player 2</label>
+          <input type="text" id="player2" required>
+          <span></span>
+        </div>
+        <button id="submitBtn" class="btn">Start game</button>
+      </form>
+    </aside>
+  </div>
 </body>
 </html>
