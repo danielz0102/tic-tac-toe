@@ -108,11 +108,9 @@ const DOMController = (() => {
 
   return { 
     loadBoard,
-    showNames,
     updateTurn,
     showWarning,
     showResult,
-    initGame,
     initForm
   }
 })()
@@ -212,7 +210,7 @@ function GameController(playerName1, playerName2) {
 
   document.querySelector('#restartBtn').addEventListener('click', resetGame)
 
-  return { playRound, resetGame }
+  return { playRound }
 }
 
 DOMController.initForm()
