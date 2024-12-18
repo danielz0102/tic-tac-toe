@@ -12,12 +12,6 @@ const Gameboard = (() => {
     }
   }
 
-  const printBoard = () => {
-    for (let i = 0; i < 3; i++) {
-      console.log(board[i])
-    }
-  }
-
   const setBoard = (mark, row, col) => {
     if (!board[row][col]) {
       board[row][col] = mark
@@ -31,7 +25,7 @@ const Gameboard = (() => {
 
   initBoard()
 
-  return { printBoard, initBoard, setBoard, getBoard }
+  return { initBoard, setBoard, getBoard }
 })()
 
 const DOMController = (() => {
@@ -147,18 +141,11 @@ function GameController(playerName1, playerName2) {
   const printRound = () => {
     const name = getActivePlayer().name
 
-    console.log('----------------------------------------------')
-    console.log(`${name}'s turn`)
     DOMController.updateTurn(name, getActivePlayer().mark)
-
-    Gameboard.printBoard()
     DOMController.loadBoard()
   }
 
   const printResult = win => {
-    console.log('----------------------------------------------')
-    Gameboard.printBoard()
-    console.log(win ? `${getActivePlayer().name} wins` : "It's a tie")
     DOMController.loadBoard()
     DOMController.showResult(win, getActivePlayer().name)
   }
@@ -172,7 +159,6 @@ function GameController(playerName1, playerName2) {
     const cellIsOccupied = !Gameboard.setBoard(getActivePlayer().mark, row, col)
 
     if (cellIsOccupied) {
-      console.log('Please select an empty cell')
       DOMController.showWarning()
       return
     }
