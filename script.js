@@ -35,12 +35,13 @@ const Gameboard = (() => {
 })()
 
 const DOMController = (() => {
-  const gameHTML = document.querySelector('#game').outerHTML
-  const formHTML = document.querySelector('aside').outerHTML
+  const gameHTML = document.querySelector('#game')
+  const formHTML = document.querySelector('aside')
   let cells
 
   const initForm = () => {
-    document.querySelector('body').innerHTML = formHTML
+    gameHTML.hidden = true
+    formHTML.hidden = false
     document.querySelector('form').addEventListener('submit', validateForm)
   }
 
@@ -49,7 +50,8 @@ const DOMController = (() => {
     const player1 = form.querySelector('#player1').value
     const player2 = form.querySelector('#player2').value
 
-    document.querySelector('body').innerHTML = gameHTML
+    formHTML.hidden = true
+    gameHTML.hidden = false
     showNames(player1, player2)
     
     cells = document.querySelectorAll('.cell')
