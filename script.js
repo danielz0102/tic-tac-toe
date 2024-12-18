@@ -70,7 +70,7 @@ const DOMController = (() => {
 
   const resetUI = () => {
     const p = document.querySelector('#info')
-    p.className = ''
+    p.classList.remove('winner')
     cells.forEach(cell => cell.disabled = false)
     document.querySelector('.warning').textContent = ''
   }
